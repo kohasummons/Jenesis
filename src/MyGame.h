@@ -10,13 +10,13 @@
 
 //  Engine Headers
 #include <jenesis/Camera.h>
-#include <jenesis/Mesh.h>
-#include <jenesis/Shapes.h>
-#include <jenesis/PlaneGround.h>
+#include <jenesis/geometry/Mesh.h>
+#include <jenesis/geometry/Shapes.h>
+#include <jenesis/geometry/PlaneGround.h>
+#include <jenesis/geometry/Sphere.h>
+#include <jenesis/geometry/Dome.h>
 #include <jenesis/Skybox.h>
 #include <jenesis/ModelMesh.h>
-#include <jenesis/Sphere.h>
-#include <jenesis/Dome.h>
 
 #include <jenesis/Light.h>
 
