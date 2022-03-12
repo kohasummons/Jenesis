@@ -29,12 +29,12 @@ enum MeshBufferPositions
 	INDEX_VB
 };
 
-class ModelMesh
+class Model
 {
 	public:
-		ModelMesh();
-	    ModelMesh(const std::string& fileName, const std::string& texturePath);
-		ModelMesh(TexVertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
+		Model();
+	    Model(const std::string& fileName, const std::string& texturePath);
+		Model(TexVertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
 
 		void setMatrices(glm::mat4 projection);
 
@@ -46,7 +46,7 @@ class ModelMesh
 		void rotate(float dt, glm::vec3 amount);
 		void scale(float x, float y, float z);
 
-		virtual ~ModelMesh();
+		virtual ~Model();
 
 		
 	protected:
@@ -54,12 +54,12 @@ class ModelMesh
 
 	private:
 		static const unsigned int NUM_BUFFERS = 4;
-		// void operator=(const ModelMesh& mesh) {}
-		ModelMesh(const ModelMesh& mesh) {}
+		// void operator=(const Model& mesh) {}
+		Model(const Model& mesh) {}
 
 		void LoadTexture(const std::string& texturePath);
 
-	    void InitModelMesh(const IndexedModel& model);
+	    void InitModel(const IndexedModel& model);
 
 		GLuint m_vertexArrayObject;
 		GLuint m_vertexArrayBuffers[NUM_BUFFERS];

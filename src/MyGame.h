@@ -16,7 +16,7 @@
 #include <jenesis/geometry/Sphere.h>
 #include <jenesis/geometry/Dome.h>
 #include <jenesis/Skybox.h>
-#include <jenesis/ModelMesh.h>
+#include <jenesis/Model.h>
 
 #include <jenesis/Light.h>
 
@@ -108,5 +108,5 @@ class MyGame
         Sphere lamp;
         Dome dome;
 
-        ModelMesh* monkey;
+        Model* monkey;
 };

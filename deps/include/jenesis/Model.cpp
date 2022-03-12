@@ -3,7 +3,7 @@
 // #include "stb_image.h"
 
 #include "TexVertex.h"
-#include "ModelMesh.h"
+#include "Model.h"
 #include "Util.h"
 #include "DebugTimer.h"
 #include <map>
@@ -14,19 +14,19 @@
 
 
 
-ModelMesh::ModelMesh()
+Model::Model()
 	{}
 
-ModelMesh::ModelMesh(const std::string& fileName, const std::string& texturePath)
+Model::Model(const std::string& fileName, const std::string& texturePath)
 {
-    InitModelMesh(OBJModel(fileName).ToIndexedModel());
+    InitModel(OBJModel(fileName).ToIndexedModel());
 
     model = glm::mat4(1.0f);
 
     LoadTexture(texturePath);
 }
 
-void ModelMesh::setMatrices(glm::mat4 projection)
+void Model::setMatrices(glm::mat4 projection)
 {
     this->projection = projection;
 
@@ -35,7 +35,7 @@ void ModelMesh::setMatrices(glm::mat4 projection)
     shader->setMat4("projection", projection);
 }
 
-void ModelMesh::InitModelMesh(const IndexedModel& model)
+void Model::InitModel(const IndexedModel& model)
 {
     m_numIndices = model.indices.size();
 
@@ -65,7 +65,7 @@ void ModelMesh::InitModelMesh(const IndexedModel& model)
 	glBindVertexArray(0);
 }
 
-void ModelMesh::LoadTexture(const std::string& texturePath)
+void Model::LoadTexture(const std::string& texturePath)
 {
 	int width, height, numComponents;
     unsigned char* data = stbi_load((texturePath).c_str(), &width, &height, &numComponents, 4);
@@ -85,12 +85,12 @@ void ModelMesh::LoadTexture(const std::string& texturePath)
     stbi_image_free(data);
 }
 
-void ModelMesh::Update()
+void Model::Update()
 {
 	// glBindTexture(GL_TEXTURE_2D, m_texture);
 }
 
-ModelMesh::ModelMesh(TexVertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices)
+Model::Model(TexVertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices)
 {
     IndexedModel model;
 
@@ -104,16 +104,16 @@ ModelMesh::ModelMesh(TexVertex* vertices, unsigned int numVertices, unsigned int
 	for(unsigned int i = 0; i < numIndices; i++)
         model.indices.push_back(indices[i]);
 
-    InitModelMesh(model);
+    InitModel(model);
 }
 
-ModelMesh::~ModelMesh()
+Model::~Model()
 {
 	glDeleteBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
 	glDeleteVertexArrays(1, &m_vertexArrayObject);
 }
 
-void ModelMesh::Draw(Camera camera, Light *light, float ambience)
+void Model::Draw(Camera camera, Light *light, float ambience)
 {
     shader->use();
     view = camera.GetViewMatrix(); //
@@ -140,21 +140,21 @@ void ModelMesh::Draw(Camera camera, Light *light, float ambience)
 }
 
 
-void ModelMesh::translate(glm::vec3 amount)
+void Model::translate(glm::vec3 amount)
 {
     glm::mat4 transform = glm::mat4(1.0f);
     transform = glm::translate(transform, amount);
     model = model * transform;
 }
 
-void ModelMesh::rotate(float dt, glm::vec3 amount)
+void Model::rotate(float dt, glm::vec3 amount)
 {
     glm::mat4 transform = glm::mat4(1.0f);
     transform = glm::rotate(transform, dt, amount);
     model = model * transform;
 }
 
-void ModelMesh::scale(float x, float y, float z)
+void Model::scale(float x, float y, float z)
 {
     glm::mat4 transform = glm::mat4(1.0f);
     transform = glm::scale(transform, glm::vec3(x, y, z));

@@ -33,7 +33,7 @@ void MyGame::Init()
 
 
     // ObjMesh - Mr. Monkey Head ;)
-    monkey = new ModelMesh(monkeyPath, red_web);
+    monkey = new Model(monkeyPath, red_web);
     monkey->setMatrices(projection);
     monkey->translate(glm::vec3(0.0f, 8.0f, -5.0f));
     monkey->scale(2.0f, 2.0f, 2.0f);
